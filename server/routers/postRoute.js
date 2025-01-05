@@ -1,11 +1,16 @@
-const router = require("express").Router();
+const express = require('express');
+const postRouter = express.Router();
+const postsService = require("../service/postService");
 
-router.get("/posts", async(req, res) => {
-  res.end();
+postRouter.get("/posts", async(req, res) => {
+  const posts = await postsService.getPosts();
+
+  res.json(posts);
 });
-router.get("/posts/:id", async(req, res) => {});
-router.post("/posts", async(req, res) => {});
-router.put("/posts/:id", async(req, res) => {});
-router.delete("/posts/:id", async(req, res) => {});
 
-module.exports = router;
+postRouter.get("/posts/:id", async(req, res) => {});
+postRouter.post("/posts", async(req, res) => {});
+postRouter.put("/posts/:id", async(req, res) => {});
+postRouter.delete("/posts/:id", async(req, res) => {});
+
+module.exports = postRouter;
