@@ -19,31 +19,20 @@ postRouter.get("/posts/:id", async (req, res) => {
 postRouter.post("/posts", async (req, res) => {
   const post = req.body;
 
-  try {
-    const newPost = await postsService.savePosts(post);
-    
-    res.status(201).json(newPost);    
-  } catch (error) {
-    res.status(409).end();
-  }
+  const newPost = await postsService.savePosts(post);
+
+  res.status(201).json(newPost);
 });
 
 postRouter.put("/posts/:id", async (req, res) => {
   const post = req.body;
-
-  try {
-    await postsService.updatePosts(req.params.id, post);
-    res.status(204).end();    
-  } catch (error) {
-    res.status(404).end(); 
-  }
+  await postsService.updatePosts(req.params.id, post);
+  res.end();
 });
 
 postRouter.delete("/posts/:id", async (req, res) => {
-
   await postsService.deletePosts(req.params.id);
-
-  res.status(204).end();
+  res.end();
 });
 
 module.exports = postRouter;
